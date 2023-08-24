@@ -1,0 +1,24 @@
+<div>
+  <form onsubmit="return false" (ngSubmit)="onLoginUser()">
+    <mat-form-field [formGroup] = 'loginForm'>
+      <mat-label>Имя пользователя</mat-label>
+      <input matInput formControlName="username"/>
+      <mat-error *ngIf="!!(isAuthorisationFailed | async)">
+
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label> Пароль </mat-label>
+      <input [type]="'password'" matInput [formControl]="loginForm.controls.password"/>
+      <mat-error *ngIf="isAuthorisationFailed | async">
+        
+      </mat-error>
+    </mat-form-field>
+      <div>
+        <button type="submit" [disabled] = '!(loginForm.controls.username.valid && loginForm.controls.password.valid || !(isAuthorisationFailed | async))' mat-raised-button >Войти</button>
+        <button (click)="onRegister()" mat-raised-button color="primary"> Зарегистрироваться</button>
+
+      </div>
+  </form>
+
+</div>

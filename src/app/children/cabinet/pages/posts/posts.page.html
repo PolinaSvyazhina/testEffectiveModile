@@ -1,0 +1,6 @@
+<div >
+  <ng-container *ngFor=" let post of (posts | async)">
+    <post-list [postModel]="post"  ></post-list>
+  </ng-container>
+</div>
+

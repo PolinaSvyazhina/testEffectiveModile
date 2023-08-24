@@ -1,0 +1,14 @@
+  <form onsubmit="return false" (ngSubmit)="onRegisterUser()">
+    <mat-form-field [formGroup] = 'registerForm'>
+      <mat-label>Имя пользователя</mat-label>
+      <input matInput formControlName="username"/>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label> Пароль </mat-label>
+      <input [type]="'password'" matInput [formControl]="registerForm.controls.password"/>
+    </mat-form-field>
+    <div>
+      <button type="submit" [disabled]='!(registerForm.controls.username.valid && registerForm.controls.password.valid)' mat-raised-button >Зарегистрироваться</button>
+    </div>
+  </form>
+
