@@ -11,7 +11,7 @@ export class AuthorizeGuard implements CanActivate{
   ) {
   }
 
-  public canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  public canActivate(): Observable<boolean | UrlTree> {
     return this._authorizeService.isUserAuth()
       .pipe(
         map((isActivated: boolean) => {

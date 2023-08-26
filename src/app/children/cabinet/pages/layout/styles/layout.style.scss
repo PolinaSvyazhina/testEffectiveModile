@@ -1,0 +1,33 @@
+.header-container {
+  position: sticky;
+  top: 0;
+  left: 0;
+
+  z-index: 100;
+
+  border-collapse: collapse;
+
+  width: 100%;
+  height: 50px;
+
+  display: flex;
+
+  margin-bottom: 2rem;
+
+
+  background-color: #d5d8db;
+
+  &_button {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    margin: 8px 40px 0 auto ;
+  }
+}
+
+:host{
+  display: block;
+  height: fit-content;
+}

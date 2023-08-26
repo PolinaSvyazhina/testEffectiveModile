@@ -1,0 +1,19 @@
+.post-list-container{
+  display: grid;
+  gap: 1rem;
+
+  margin: 1rem;
+
+
+  &_text{
+    font-weight: 600;
+    &__title {
+      text-align: center;
+    }
+    &__body{
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+}

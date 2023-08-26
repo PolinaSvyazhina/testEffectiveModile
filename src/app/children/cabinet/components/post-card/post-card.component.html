@@ -1,0 +1,22 @@
+<ng-container *ngIf="postModel">
+  <div class="post-list-container" [routerLink]="['/cabinet/post' ,postModel.id]" >
+    <div class="post-list-container_text__title">
+      {{postModel.title}}
+    </div>
+    <div class="post-list-container_text__body">
+      {{postModel.body}}
+    </div>
+    <button [matMenuTriggerFor]="idDropdown"
+            (mouseenter)= "showMenu($event)"
+            (mouseleave)="showMenu($event)" color="primary"
+            mat-mini-fab>
+      <mat-menu #idDropdown>
+        <span>
+          {{postModel.userId}}
+        </span>
+      </mat-menu>
+      <mat-icon style="pointer-events: none" [fontIcon]="'person'">
+      </mat-icon>
+    </button>
+  </div>
+</ng-container>

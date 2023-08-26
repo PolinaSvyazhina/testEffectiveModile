@@ -1,11 +1,11 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 import {IPost} from "./interfaces/post.interface";
 
 @Injectable()
 
-export class PostService{
+export class PostManagerService {
   constructor(
     private _httpClient: HttpClient
   ) {
@@ -16,8 +16,11 @@ export class PostService{
   }
 
   public getPost(id: number): Observable<IPost>{
-    return this._httpClient.get<IPost>('https://jsonplaceholder.typicode.com/posts', {
+    return this._httpClient.get<IPost[]>('https://jsonplaceholder.typicode.com/posts', {
       params: {id}
     })
+      .pipe(
+        map((posts: IPost[]) => posts[0])
+      )
   }
 }

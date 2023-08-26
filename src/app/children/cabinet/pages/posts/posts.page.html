@@ -1,6 +1,6 @@
-<div >
+<div class="container">
   <ng-container *ngFor=" let post of (posts | async)">
-    <post-list [postModel]="post"  ></post-list>
+    <post-card class="container__card" [postModel]="post"  ></post-card>
   </ng-container>
 </div>
 

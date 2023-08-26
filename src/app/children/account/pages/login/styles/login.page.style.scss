@@ -1,0 +1,28 @@
+.container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  overflow: auto;
+
+  &_children-container {
+    display: grid;
+    width: 35%;
+    &__text-error {
+      margin-bottom: 1em;
+    }
+
+    &__buttons{
+      display: flex;
+      justify-content: space-between;
+      &_button-right{
+        padding: 18px 32px
+      }
+    }
+  }
+}

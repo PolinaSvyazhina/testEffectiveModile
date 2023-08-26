@@ -1,14 +1,23 @@
-  <form onsubmit="return false" (ngSubmit)="onRegisterUser()">
-    <mat-form-field [formGroup] = 'registerForm'>
+<div class="container">
+  <form class="container_children-container" onsubmit="return false" (ngSubmit)="registerUser()">
+    <mat-form-field [formGroup]='registerForm'>
       <mat-label>Имя пользователя</mat-label>
       <input matInput formControlName="username"/>
     </mat-form-field>
     <mat-form-field>
-      <mat-label> Пароль </mat-label>
-      <input [type]="'password'" matInput [formControl]="registerForm.controls.password"/>
+      <mat-label> Пароль</mat-label>
+      <input [type]="hide ? 'password' : 'text'" matInput [formControl]="registerForm.controls.password"/>
+      <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
     </mat-form-field>
     <div>
-      <button type="submit" [disabled]='!(registerForm.controls.username.valid && registerForm.controls.password.valid)' mat-raised-button >Зарегистрироваться</button>
+      <button type="submit"
+              mat-raised-button
+              [disabled]='!(registerForm.controls.username.valid && registerForm.controls.password.valid)'
+      >
+        Зарегистрироваться
+      </button>
     </div>
   </form>
-
+</div>

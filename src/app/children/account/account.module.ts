@@ -9,6 +9,8 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatButtonModule} from "@angular/material/button";
 import {AsyncPipe, CommonModule} from "@angular/common";
 import {RegisterPage} from "./pages/register/register.page";
+import {MatGridListModule} from "@angular/material/grid-list";
+import {MatIconModule} from "@angular/material/icon";
 
 const routes: Routes = [
   {
@@ -43,6 +45,8 @@ const routes: Routes = [
     AsyncPipe,
     CommonModule,
     FormsModule,
+    MatGridListModule,
+    MatIconModule,
   ],
   declarations: [
     LayoutPage,

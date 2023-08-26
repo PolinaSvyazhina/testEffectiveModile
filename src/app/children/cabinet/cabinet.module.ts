@@ -5,9 +5,12 @@ import {PostsPage} from "./pages/posts/posts.page";
 import {AsyncPipe, CommonModule} from "@angular/common";
 import {MatTableModule} from "@angular/material/table";
 import {LayoutPage} from "./pages/layout/layout.page";
-import {PostService} from "../../modules/posts/post.service";
+import {PostManagerService} from "../../modules/posts/post-manager.service";
 import {MatButtonModule} from "@angular/material/button";
-import {LayoutPostComponents} from "./components/post-list/post-list.component";
+import {PostContainerComponent} from "./components/post-container/post-container.component";
+import {PostCardComponent} from "./components/post-card/post-card.component";
+import {MatIconModule} from "@angular/material/icon";
+import {MatMenuModule} from "@angular/material/menu";
 
 const routes: Routes = [
   {
@@ -33,15 +36,18 @@ const routes: Routes = [
     MatTableModule,
     CommonModule,
     MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
   ],
   declarations: [
     PostPage,
     PostsPage,
     LayoutPage,
-    LayoutPostComponents
+    PostCardComponent,
+    PostContainerComponent,
   ],
   providers: [
-    PostService
+    PostManagerService,
   ]
 })
 

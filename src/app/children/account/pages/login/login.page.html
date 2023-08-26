@@ -1,23 +1,31 @@
-<div>
-  <form onsubmit="return false" (ngSubmit)="onLoginUser()">
+<div class="container">
+  <form class="container_children-container" onsubmit="return false" (ngSubmit)="login()">
+    <mat-error class="container_children-container__text-error" *ngIf="isAuthorisationFailed | async">
+      Проверьте корректность введенных данных
+    </mat-error>
     <mat-form-field [formGroup] = 'loginForm'>
       <mat-label>Имя пользователя</mat-label>
       <input matInput formControlName="username"/>
       <mat-error *ngIf="!!(isAuthorisationFailed | async)">
-
       </mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label> Пароль </mat-label>
-      <input [type]="'password'" matInput [formControl]="loginForm.controls.password"/>
+      <input [type]="hide ? 'password' : 'text'" matInput [formControl]="loginForm.controls.password"/>
+      <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
       <mat-error *ngIf="isAuthorisationFailed | async">
-        
       </mat-error>
     </mat-form-field>
-      <div>
-        <button type="submit" [disabled] = '!(loginForm.controls.username.valid && loginForm.controls.password.valid || !(isAuthorisationFailed | async))' mat-raised-button >Войти</button>
-        <button (click)="onRegister()" mat-raised-button color="primary"> Зарегистрироваться</button>
-
+      <div class="container_children-container__buttons">
+        <button class="container_children-container__buttons_button-right"
+                type="submit"
+                mat-raised-button
+                [disabled] = '!((loginForm.controls.username.valid && loginForm.controls.password.valid) && !(isAuthorisationFailed | async))'
+                >Войти
+        </button>
+        <button (click)="navigateToRegister()" mat-raised-button color="primary"> Зарегистрироваться</button>
       </div>
   </form>
 

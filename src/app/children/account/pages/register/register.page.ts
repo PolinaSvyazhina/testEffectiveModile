@@ -11,24 +11,28 @@ type RegisterForm = {
 }
 @Component({
   templateUrl: './register.page.html',
-  styleUrls: [],
+  styleUrls: ['./styles/register.page.style.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 
 })
 
 export class RegisterPage {
+
+  public registerForm: FormGroup<RegisterForm>  = new FormGroup<RegisterForm>({
+    password: new FormControl<string | null>('', [Validators.required, Validators.minLength(4)]),
+    username: new FormControl<string | null>('', [Validators.required,Validators.minLength(5)])
+  })
+  public hide: boolean = true;
   constructor(
     private _authService: AuthorizeService,
     private _router: Router,
   ) {
   }
 
-  public registerForm: FormGroup<RegisterForm>  = new FormGroup<RegisterForm>({
-    password: new FormControl<string | null>('', [Validators.required]),
-    username: new FormControl<string | null>('', [Validators.required])
-  })
-
-  public onRegisterUser(): void{
+  /**
+   * Зарегистрировать пользователя
+   */
+  public registerUser(): void{
     const user: IUserCredential = {
       username: this.registerForm.value.username!,
       password: this.registerForm.value.password!,

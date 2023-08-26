@@ -4,7 +4,7 @@ import {Router} from "@angular/router";
 
 @Component({
   templateUrl: './layout.page.html',
-  styleUrls: [],
+  styleUrls: ['./styles/layout.style.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LayoutPage {
@@ -15,8 +15,11 @@ export class LayoutPage {
   ) {
   }
 
+  /**
+   * Деавторизация
+   */
   public logout(): void{
-    this._authService.logoutUser();
+    this._authService.removeUser();
     this._router.navigate(['account', 'login'])
   }
 }

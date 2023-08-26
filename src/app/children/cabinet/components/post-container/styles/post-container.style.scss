@@ -1,0 +1,25 @@
+.post-container {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  &_post-inside{
+    display: grid;
+
+    height: 10rem;
+
+    background-color: #e9edf1;
+    box-shadow: 10px 5px 5px #666 ;
+    border-radius: 15px;
+    cursor: pointer;
+
+    &__title {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      font-weight: bold;
+    }
+  }
+
+}

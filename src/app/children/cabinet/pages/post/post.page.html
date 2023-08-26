@@ -1,0 +1,4 @@
+<ng-container *ngIf="(postModel$ | async) as post" >
+  <post-container class="container" [post]="post" ></post-container>
+  <button mat-raised-button (click)="navigateToBackOnPostsPage()" > Назад </button>
+</ng-container>

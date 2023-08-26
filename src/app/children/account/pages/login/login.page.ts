@@ -1,9 +1,9 @@
 import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core";
-import {AsyncValidatorFn, FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
+import {FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
 import {IUserCredential} from "../../../../modules/authorize/interfaces/user-credential.interface";
 import {AuthorizeService} from "../../../../modules/authorize/services/authorize.service";
 import {Router} from "@angular/router";
-import {BehaviorSubject, map, Observable, Subject, take, tap} from "rxjs";
+import {BehaviorSubject, Observable, take, tap} from "rxjs";
 import {memoize} from "@angular/cli/src/utilities/memoize";
 
 type LoginForm = {
@@ -13,30 +13,41 @@ type LoginForm = {
 
 @Component({
   templateUrl: './login.page.html',
-  styleUrls: [],
+  styleUrls: ['./styles/login.page.style.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginPage implements OnInit{
+export class LoginPage implements OnInit {
+
+  @memoize
+  public get isAuthorisationFailed(): Observable<boolean> {
+
+    return this._isAuthorisationFailed.asObservable()
+  }
+
+  public hide: boolean = true;
+
+  public loginForm: FormGroup<LoginForm> = new FormGroup<LoginForm>({
+    password: new FormControl<string | null>('', [Validators.required, Validators.minLength(4)]),
+    username: new FormControl<string | null>('', [Validators.required, Validators.minLength(5)])
+  });
+
+  private _isAuthorisationFailed: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   constructor(
     private _authService: AuthorizeService,
     private _router: Router,
   ) {
-
   }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.loginForm.controls.password.addValidators([this.validatorAuthorization()])
     this.loginForm.controls.username.addValidators([this.validatorAuthorization()])
   }
 
-  public loginForm: FormGroup<LoginForm> = new FormGroup<LoginForm>({
-    password: new FormControl<string | null>('', [Validators.required]),
-    username: new FormControl<string | null>('', [Validators.required])
-  })
-
-  private _isAuthorisationFailed: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
-  public onLoginUser(): void {
+  /**
+   * Авторизоваться
+   */
+  public login(): void {
     const user: IUserCredential = {
       username: this.loginForm.value.username!,
       password: this.loginForm.value.password!,
@@ -60,16 +71,18 @@ export class LoginPage implements OnInit{
       ).subscribe();
   }
 
-  public onRegister() {
+  /**
+   * Перейти к регистрации
+   */
+  public navigateToRegister(): void {
     this._router.navigate(['account', 'register']);
   }
 
-  @memoize
-  public get isAuthorisationFailed(): Observable<boolean> {
-
-    return this._isAuthorisationFailed.asObservable()
-  }
-
+  /**
+   * Валидатор успешного совпадения пары login/password
+   * @return ValidatorFn - делегат валидации
+   * @private
+   */
   private validatorAuthorization(): ValidatorFn {
     return (ctr) => {
      return this._isAuthorisationFailed.value? {inv: true} : null;
