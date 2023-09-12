@@ -22,7 +22,7 @@
         <button class="container_children-container__buttons_button-right"
                 type="submit"
                 mat-raised-button
-                [disabled] = '!((loginForm.controls.username.valid && loginForm.controls.password.valid) && !(isAuthorisationFailed | async))'
+                [disabled]='!(loginForm.valid)'
                 >Войти
         </button>
         <button (click)="navigateToRegister()" mat-raised-button color="primary"> Зарегистрироваться</button>

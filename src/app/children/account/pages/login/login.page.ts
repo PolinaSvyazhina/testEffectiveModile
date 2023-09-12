@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core";
-import {FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
+import {AbstractControl, FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
 import {IUserCredential} from "../../../../modules/authorize/interfaces/user-credential.interface";
 import {AuthorizeService} from "../../../../modules/authorize/services/authorize.service";
 import {Router} from "@angular/router";
@@ -62,6 +62,7 @@ export class LoginPage implements OnInit {
           }
 
           this._isAuthorisationFailed.next(!isSuccessfulAuth);
+          this.loginForm.setValidators([this.validatorSnapshot(this.getCredentialSnapshot(this.loginForm))])
 
           this.loginForm.controls.username.updateValueAndValidity({emitEvent: true});
           this.loginForm.controls.password.updateValueAndValidity({emitEvent: true});
@@ -88,4 +89,22 @@ export class LoginPage implements OnInit {
      return this._isAuthorisationFailed.value? {inv: true} : null;
     }
   }
+
+  private validatorSnapshot(compareString: string): ValidatorFn {
+    return (ctr) => {
+      if(this.getCredentialSnapshot(ctr) === compareString){
+        return  {inv: true};
+      }
+      this._isAuthorisationFailed.next(false);
+      this.loginForm.controls.username.updateValueAndValidity({emitEvent: true, onlySelf: true});
+      this.loginForm.controls.password.updateValueAndValidity({emitEvent: true, onlySelf: true});
+
+      return null;
+    }
+  }
+
+  private getCredentialSnapshot(form: AbstractControl): string {
+    return form.value.password + form.value.username
+  }
+
 }
